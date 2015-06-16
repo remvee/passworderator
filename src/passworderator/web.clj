@@ -90,7 +90,12 @@
    [:section.explanation
     [:p
      "See also: "
-     [:a {:href "http://xkcd.com/936/"} "XKCD - Password Strength"]]]])
+     [:a {:href "http://xkcd.com/936/"} "XKCD - Password Strength"]]]
+   [:section.code
+    [:p
+     "Code at: "
+     [:a {:href "https://github.com/remvee/passworderator"}
+      "GitHub - remvee/passworderator"]]]])
 
 (def default-words 4)
 (def max-words 10)
