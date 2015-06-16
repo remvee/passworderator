@@ -11,6 +11,9 @@
    :headers {"Content-Type" "text/html;charset=UTF-8"}
    :body html})
 
+(defn no-cache [resp]
+  (update-in resp [:headers] assoc "Cache-Control" "no-cache"))
+
 (def default-title "Passworderator")
 
 (defn layout [body]
@@ -86,7 +89,7 @@
        (let [opts {:locale (or locale "en")
                    :words (if words (Long/parseLong words) 4)
                    :max-word-length (if max-word-length (Long/parseLong max-word-length) 10)}]
-         (-> (render-index opts) layout html-ok)))
+         (-> (render-index opts) layout html-ok no-cache)))
 
   (resources "/" {:root "public"})
   (not-found "nothing here.."))
