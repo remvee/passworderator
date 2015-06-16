@@ -28,7 +28,7 @@
       body])))
 
 (defn humanize-combinations [{:keys [combinations words]}]
-  (let [n combinations
+  (let [n (.doubleValue combinations)
         day (* 1000 60 60 24)
         month (* day 30.5)
         year (* day 365)
@@ -55,7 +55,7 @@
            :else
            (str (Math/round (/ n millenium)) " millenia"))
 
-         " at 1000 guesses/sec with a list of " words " words")]
+         " at 1000 guesses/sec")]
     (if (< n century)
       [:span.warning msg]
       msg)))
@@ -65,19 +65,27 @@
    [:section.generated-password
     (for [w (generator/generate opts)]
       [:span w])]
-   [:section.combinations
-    (humanize-combinations (generator/combinations opts))]
+   (let [comb (generator/combinations opts)]
+     [:section.combinations
+      [:div.time
+       [:span
+        (str "(" (:words comb) " words)")
+        [:sup words]
+        " ≈ "
+        (format "%.0f" (:combinations comb))
+        " posibilities"]]
+      [:div.posibilities
+       (humanize-combinations comb)]])
    [:section.customize
     [:form {:method "GET"}
-     [:label {:for "locale"} "Language"]
-     [:select#locale
-      {:name "locale"}
+     [:label {:for "l"} "Language"]
+     [:select#l {:name "locale"}
       (for [v generator/locales]
         [:option {:selected (= v locale)} v])]
-     [:label {:for "words"} "Words"]
-     [:input#words {:type "number", :name "words", :value words}]
-     [:label {:for "max-word-length"} "Maximum word length"]
-     [:input#max-word-length {:type "number", :name "max-word-length", :value max-word-length}]
+     [:label {:for "w"} "Words"]
+     [:input#w {:type "number", :name "words", :value words}]
+     [:label {:for "m"} "Maximum word length"]
+     [:input#m {:type "number", :name "max-word-length", :value max-word-length}]
      [:button {:type "submit"} "Other!"]]]
    [:section.explanation
     [:p

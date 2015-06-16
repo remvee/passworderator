@@ -34,4 +34,4 @@
   (let [wordcount (count (filter #(< (count %) max-word-length)
                                  (wordlist locale)))]
     {:words wordcount
-     :combinations (Math/pow wordcount words)}))
+     :combinations (.pow (BigDecimal. wordcount) words)}))

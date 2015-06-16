@@ -30,7 +30,10 @@ header h1 {
     margin: 0;
     text-align: center;
 }
-                
+
+section.combinations {
+    text-align: center;
+}
 .generated-password {
     font-size: 200%;
     padding: .5em;
