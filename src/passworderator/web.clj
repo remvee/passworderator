@@ -71,7 +71,7 @@
        [:span
         (str "(" (:words comb) " words)")
         [:sup words]
-        " ≈ "
+        " = "
         (format "%.0f" (:combinations comb))
         " posibilities"]]
       [:div.posibilities
@@ -92,12 +92,21 @@
      "See also: "
      [:a {:href "http://xkcd.com/936/"} "XKCD - Password Strength"]]]])
 
+(def default-words 4)
+(def max-words 10)
+(def default-max-word-length 10)
+
 (defroutes handler
   (GET "/" [locale words max-word-length]
-       (let [opts {:locale (or locale "en")
-                   :words (if words (Long/parseLong words) 4)
-                   :max-word-length (if max-word-length (Long/parseLong max-word-length) 10)}]
-         (-> (render-index opts) layout html-ok no-cache)))
+       (-> {:locale (or locale "en")
+            :words (min (if words
+                          (Long/parseLong words)
+                          default-words)
+                        max-words)
+            :max-word-length (if max-word-length
+                               (Long/parseLong max-word-length)
+                               default-max-word-length)}
+           render-index layout html-ok no-cache))
 
   (resources "/" {:root "public"})
   (not-found "nothing here.."))
