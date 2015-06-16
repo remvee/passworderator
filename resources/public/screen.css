@@ -1,0 +1,50 @@
+html {
+    background: #f8f8f8;
+}
+body {
+    margin: 0;
+}
+                   
+section {
+    margin-bottom: 1em;
+}
+label {
+    display: block;
+    margin-top: .5em;
+}
+input {
+    margin-right: 1em;
+}
+header, main, footer {
+    padding: 1em;
+}
+main {
+    max-width: 40em;
+    margin: 0 auto;
+}
+header {
+    background: #000;
+    color: #fff;
+}
+header h1 {
+    margin: 0;
+    text-align: center;
+}
+                
+.generated-password {
+    font-size: 200%;
+    padding: .5em;
+    box-shadow: #000 0px 0px 10px;
+    text-align: center;
+    background: #ffffff;
+}
+.generated-password span {
+    display: inline-block;
+}
+.generated-password span:nth-child(even) {
+    color: red;
+}
+.warning {
+    color: red;
+    font-weight: bold;
+}
