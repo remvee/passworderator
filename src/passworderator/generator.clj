@@ -21,7 +21,7 @@
                     :or {locale "en"
                          max-word-length 10
                          words 4}}]]
-  (let [wordlist (filter #(< (count %) max-word-length)
+  (let [wordlist (filter #(<= (count %) max-word-length)
                          (wordlist locale))]
     (take words (repeatedly #(rand-nth wordlist)))))
 
@@ -31,7 +31,7 @@
                         :or {locale "en"
                              max-word-length 10
                              words 4}}]]
-  (let [wordcount (count (filter #(< (count %) max-word-length)
+  (let [wordcount (count (filter #(<= (count %) max-word-length)
                                  (wordlist locale)))]
     {:words wordcount
      :combinations (.pow (BigDecimal. wordcount) words)}))
